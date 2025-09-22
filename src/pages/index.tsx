@@ -13,6 +13,7 @@ import {
   User,
   Home,
   CheckCircle2,
+  Star,
 } from "lucide-react";
 
 // Temporary cast while framer-motion catches up with React 19 type changes (className missing otherwise).
@@ -110,13 +111,17 @@ function Loader() {
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
-  const [callbackRequested, setCallbackRequested] = useState(false);
   const bookingRef = useRef<HTMLDivElement | null>(null);
   const [form, setForm] = useState({
     name: "", phone: "", service: "Laundry", address: "", date: "", time: "", notes: ""
   });
   const [submitted, setSubmitted] = useState(false);
   const [serverRef, setServerRef] = useState<string | null>(null);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackRating, setFeedbackRating] = useState<number | null>(null);
+  const [feedbackHoverRating, setFeedbackHoverRating] = useState<number | null>(null);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setIsLoading(false), 5000);
@@ -181,6 +186,19 @@ export default function Page() {
   };
 
   const scrollToBooking = () => bookingRef.current?.scrollIntoView({ behavior: "smooth" });
+
+  const submitFeedback = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!feedbackRating) {
+      alert("Please select a star rating before submitting.");
+      return;
+    }
+    setFeedbackSubmitted(true);
+    setFeedbackOpen(false);
+    setFeedbackText("");
+    setFeedbackRating(null);
+    setFeedbackHoverRating(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800">
@@ -327,12 +345,102 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Callback */}
+        {/* Feedback */}
         <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="bg-blue-800 text-white py-16 px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Request a Callback</h2>
-          {!callbackRequested ? (
-            <Button onClick={() => setCallbackRequested(true)} className="bg-white text-blue-800 font-semibold px-6 py-3 rounded-xl shadow-lg hover:bg-gray-100"><Phone className="inline w-5 h-5 mr-2" /> Request Now</Button>
-          ) : (<p className="text-lg mt-4">Thank you! We will call you shortly.</p>)}
+          <h2 className="text-3xl font-bold mb-4">Feedback / Rate Us</h2>
+            <p className="text-blue-100 max-w-2xl mx-auto mb-6">
+              Loved our service or spotted something we can improve? Drop your rating and feedback so we can keep raising the bar for Roxy families.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => {
+                setFeedbackOpen((open) => !open);
+                setFeedbackSubmitted(false);
+              }}
+              className="px-6 py-3 rounded-xl shadow-lg bg-white text-blue-800 font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            >
+              <Sparkles className="w-5 h-5" /> Share Feedback
+            </motion.button>
+            <AnimatePresence mode="wait">
+              {feedbackOpen ? (
+                <motion.form
+                  key="feedback-form"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 30 }}
+                  transition={{ duration: 0.25 }}
+                  onSubmit={submitFeedback}
+                  className="max-w-xl mx-auto mt-8 text-left bg-white/10 border border-white/15 rounded-2xl p-6 space-y-5 backdrop-blur"
+                >
+                  <div>
+                    <span className="block text-sm uppercase tracking-wide text-blue-100 mb-2">Your rating</span>
+                    <div className="flex justify-center gap-2">
+                      {[1, 2, 3, 4, 5].map((value) => {
+                        const active = value <= (feedbackHoverRating ?? feedbackRating ?? 0);
+                        return (
+                          <button
+                            type="button"
+                            key={value}
+                            onMouseEnter={() => setFeedbackHoverRating(value)}
+                            onMouseLeave={() => setFeedbackHoverRating(null)}
+                            onClick={() => setFeedbackRating(value)}
+                            className="p-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white/40"
+                            aria-label={`Rate ${value} star${value > 1 ? "s" : ""}`}
+                          >
+                            <Star
+                              className={`w-8 h-8 ${active ? "text-yellow-300" : "text-blue-200"}`}
+                              fill={active ? "currentColor" : "none"}
+                            />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm uppercase tracking-wide text-blue-100" htmlFor="feedback-notes">
+                      Tell us a bit more
+                    </label>
+                    <textarea
+                      id="feedback-notes"
+                      rows={4}
+                      value={feedbackText}
+                      onChange={(event) => setFeedbackText(event.target.value)}
+                      placeholder="Share what we did well or how we can improve..."
+                      className="w-full rounded-xl border border-white/20 bg-white/10 text-white placeholder:text-blue-200/70 p-4 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    />
+                  </div>
+                  <div className="flex justify-end gap-3">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setFeedbackOpen(false);
+                        setFeedbackRating(null);
+                        setFeedbackHoverRating(null);
+                        setFeedbackText("");
+                      }}
+                      className="bg-white/10 text-blue-100 border border-white/20 hover:bg-white/20"
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="bg-yellow-300 text-blue-900 font-semibold hover:bg-yellow-200">
+                      Submit Feedback
+                    </Button>
+                  </div>
+                </motion.form>
+              ) : feedbackSubmitted ? (
+                <motion.p
+                  key="feedback-thanks"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-blue-50 mt-6"
+                >
+                  Thank you for sharing your feedback! It helps us keep Roxy spotless.
+                </motion.p>
+              ) : null}
+            </AnimatePresence>
         </motion.div>
 
         {/* Contact */}
