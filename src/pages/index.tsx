@@ -455,9 +455,42 @@ export default function Page() {
           <h2 className="text-3xl font-bold mb-4 text-blue-800">Contact Us</h2>
           <p className="text-gray-600 max-w-xl mx-auto mb-6 text-sm sm:text-base">Have questions? Reach out via phone, WhatsApp, or email. We’re here to help you 24/7.</p>
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white"><h3 className="font-semibold text-lg mb-2">📞 Phone</h3><p className="text-gray-700">9219636801</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white"><h3 className="font-semibold text-lg mb-2">💬 WhatsApp</h3><p className="text-gray-700">9219636801</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white"><h3 className="font-semibold text-lg mb-2">📧 Email</h3><p className="text-gray-700">bk.roxy@gmail.com</p></Card>
+            <a
+              href="tel:9219636801"
+              className="group block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl"
+              aria-label="Call Roxy Dry Cleaners"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">📞 Phone</span>
+                  <span className="text-gray-700 tracking-wide">9219636801</span>
+                </div>
+              </Card>
+            </a>
+            <a
+              href="https://wa.me/9219636801"
+              className="group block focus:outline-none focus:ring-2 focus:ring-green-500 rounded-2xl"
+              aria-label="Chat with Roxy Dry Cleaners on WhatsApp"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">💬 WhatsApp</span>
+                  <span className="text-gray-700 tracking-wide">9219636801</span>
+                </div>
+              </Card>
+            </a>
+            <a
+              href="mailto:bk.roxy@gmail.com?subject=Roxy%20Dry%20Cleaners%20Feedback"
+              className="group block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl"
+              aria-label="Email Roxy Dry Cleaners"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">📧 Email</span>
+                  <span className="text-gray-700 tracking-wide">bk.roxy@gmail.com</span>
+                </div>
+              </Card>
+            </a>
           </div>
         </div>
 
