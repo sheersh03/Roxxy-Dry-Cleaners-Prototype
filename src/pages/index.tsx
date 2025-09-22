@@ -20,8 +20,8 @@ import {
 // Temporary cast while framer-motion catches up with React 19 type changes (className missing otherwise).
 const motion: any = motionPrimitive;
 
-// const WHATSAPP_NUMBER = "9219636801";
-const WHATSAPP_NUMBER = "7464849860";
+const WHATSAPP_NUMBER = "9219636801";
+// const WHATSAPP_NUMBER = "7464849860";
 
 function Loader() {
   return (
