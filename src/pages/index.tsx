@@ -20,6 +20,9 @@ import {
 // Temporary cast while framer-motion catches up with React 19 type changes (className missing otherwise).
 const motion: any = motionPrimitive;
 
+// const WHATSAPP_NUMBER = "9219636801";
+const WHATSAPP_NUMBER = "7464849860";
+
 function Loader() {
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
@@ -124,6 +127,19 @@ export default function Page() {
   const [feedbackText, setFeedbackText] = useState("");
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
+  const heroWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Roxy Dry Cleaners, I want to book a pickup.")}`;
+  const supportWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Roxy team, need help with my booking")}`;
+  const directWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+  const openWhatsAppWithMessage = (message: string) => {
+    if (typeof window === "undefined") return;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    const newWindow = window.open(url, "_blank");
+    if (!newWindow) {
+      window.location.href = url;
+    }
+  };
+
   useEffect(() => {
     const t = setTimeout(() => setIsLoading(false), 5000);
     return () => clearTimeout(t);
@@ -181,6 +197,21 @@ export default function Page() {
     if (data?.ok) {
       setServerRef(data.ref || null);
       setSubmitted(true);
+
+      const referenceLine = data.ref ? `📄 Ref: ${data.ref}` : null;
+      const messageLines = [
+        "👋 Hi Roxy Dry Cleaners, I want to schedule a pickup.",
+        referenceLine,
+        `🧾 Name: ${form.name || "(not provided)"}`,
+        `📞 Phone: ${form.phone || "(not provided)"}`,
+        `🧺 Service: ${form.service || "(not selected)"}`,
+        form.address ? `📍 Address: ${form.address}` : null,
+        form.date ? `📅 Preferred Date: ${form.date}` : null,
+        form.time ? `⏰ Preferred Time: ${form.time}` : null,
+        form.notes ? `📝 Notes: ${form.notes}` : null,
+      ].filter(Boolean).join("\n");
+
+      openWhatsAppWithMessage(messageLines);
     } else {
       alert(data?.error || "Something went wrong");
     }
@@ -217,7 +248,7 @@ export default function Page() {
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Premium Laundry, Washing, and Dry Cleaning. Best-in-class workforce, industry-leading machinery, and highly qualified fabric-care experts.</p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <Button onClick={scrollToBooking} className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg w-full sm:w-auto">Book a Service</Button>
-            <a href="https://wa.me/9219636801?text=Hi%20Roxy%20Dry%20Cleaners%2C%20I%20want%20to%20book%20a%20pickup." target="_blank" rel="noreferrer">
+            <a href={heroWhatsAppLink} target="_blank" rel="noreferrer">
               <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto"><MessageCircle className="w-5 h-5" /> WhatsApp Us</Button>
             </a>
           </div>
@@ -324,7 +355,7 @@ export default function Page() {
                   <li>Eco-friendly detergents</li>
                   <li>Real-time WhatsApp support</li>
                 </ul>
-                <a href="https://wa.me/9219636801?text=Hi%20Roxy%20team%2C%20need%20help%20with%20my%20booking" target="_blank" rel="noreferrer">
+                <a href={supportWhatsAppLink} target="_blank" rel="noreferrer">
                   <Button className="bg-green-600 hover:bg-green-700 text-white w-full mt-2 flex items-center justify-center gap-2"><MessageCircle className="w-5 h-5" /> Chat on WhatsApp</Button>
                 </a>
               </CardContent>
@@ -468,7 +499,7 @@ export default function Page() {
               </Card>
             </a>
             <a
-              href="https://wa.me/9219636801"
+              href={directWhatsAppLink}
               className="group block focus:outline-none focus:ring-2 focus:ring-green-500 rounded-2xl"
               aria-label="Chat with Roxy Dry Cleaners on WhatsApp"
             >
