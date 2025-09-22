@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { AnimatePresence, motion as motionPrimitive } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -201,23 +202,29 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800">
+    <>
+      <Head>
+        <title>Roxy Dry Cleaners</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1d4ed8" />
+      </Head>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800">
       <AnimatePresence>{isLoading ? <Loader /> : null}</AnimatePresence>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: isLoading ? 0 : 1 }} transition={{ delay: 0.05, duration: 0.6 }} className={isLoading ? "pointer-events-none select-none" : ""}>
         {/* Hero */}
-        <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center py-20">
-          <h1 className="text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">Roxy Dry Cleaners</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Premium Laundry, Washing, and Dry Cleaning. Best-in-class workforce, industry-leading machinery, and highly qualified fabric-care experts.</p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button onClick={scrollToBooking} className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg">Book a Service</Button>
+        <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center px-4 sm:px-6 lg:px-0 py-16 md:py-24">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-800 mb-4 leading-tight tracking-tight">Roxy Dry Cleaners</h1>
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Premium Laundry, Washing, and Dry Cleaning. Best-in-class workforce, industry-leading machinery, and highly qualified fabric-care experts.</p>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <Button onClick={scrollToBooking} className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg w-full sm:w-auto">Book a Service</Button>
             <a href="https://wa.me/9219636801?text=Hi%20Roxy%20Dry%20Cleaners%2C%20I%20want%20to%20book%20a%20pickup." target="_blank" rel="noreferrer">
-              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2"><MessageCircle className="w-5 h-5" /> WhatsApp Us</Button>
+              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto"><MessageCircle className="w-5 h-5" /> WhatsApp Us</Button>
             </a>
           </div>
         </motion.div>
 
         {/* Services */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }} className="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 py-10">
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 px-4 sm:px-6 lg:px-10 py-12">
           {services.map((service, index) => (
             <Card key={index} className="rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 bg-white/80 backdrop-blur">
               <CardContent className="p-6 text-center">
@@ -230,7 +237,7 @@ export default function Page() {
         </motion.div>
 
         {/* Reviews */}
-        <section className="px-6 md:px-10 py-12">
+        <section className="px-4 sm:px-6 lg:px-10 py-12">
           <h2 className="text-3xl font-bold mb-6 text-blue-800 text-center">Loved by Customers</h2>
           <div className="relative max-w-4xl mx-auto">
             <AnimatePresence mode="wait">
@@ -252,11 +259,11 @@ export default function Page() {
         </section>
 
         {/* Booking Form */}
-        <section ref={bookingRef} className="px-6 md:px-10 py-12">
+        <section ref={bookingRef} className="px-4 sm:px-6 lg:px-10 py-12">
           <h2 className="text-3xl font-bold mb-6 text-blue-800 text-center">Book a Pickup</h2>
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto grid gap-8 md:grid-cols-2">
             <Card className="rounded-2xl shadow-lg bg-white/90 backdrop-blur">
-              <CardContent className="p-6">
+              <CardContent className="p-5 sm:p-6">
                 {!submitted ? (
                   <form onSubmit={submitBooking} className="grid gap-4">
                     <div className="grid gap-1">
@@ -279,12 +286,12 @@ export default function Page() {
                       <label className="font-medium flex items-center gap-2"><Home className="w-4 h-4" /> Pickup Address</label>
                       <textarea name="address" value={form.address} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" placeholder="House/Flat No, Street, Locality, City" />
                     </div>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid gap-4 sm:grid-cols-2">
                       <div className="grid gap-1"><label className="font-medium flex items-center gap-2"><Calendar className="w-4 h-4" /> Preferred Date</label><input type="date" name="date" value={form.date} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" /></div>
                       <div className="grid gap-1"><label className="font-medium flex items-center gap-2"><Clock className="w-4 h-4" /> Preferred Time</label><input type="time" name="time" value={form.time} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" /></div>
                     </div>
                     <div className="grid gap-1"><label className="font-medium">Notes (optional)</label><textarea name="notes" value={form.notes} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" placeholder="Any special instructions (fabric type, stains, etc.)" /></div>
-                    <Button type="submit" className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg">Confirm Booking</Button>
+                    <Button type="submit" className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg w-full sm:w-auto">Confirm Booking</Button>
                   </form>
                 ) : (
                   <div className="text-center py-6 space-y-4">
@@ -299,7 +306,7 @@ export default function Page() {
                         setServerRef(null);
                         setForm({ name: "", phone: "", service: "Laundry", address: "", date: "", time: "", notes: "" });
                       }}
-                      className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg"
+                      className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg w-full sm:w-auto"
                     >
                       Book another pickup
                     </Button>
@@ -311,14 +318,14 @@ export default function Page() {
             <Card className="rounded-2xl shadow-lg bg-blue-800 text-white">
               <CardContent className="p-6 grid gap-4">
                 <h3 className="text-2xl font-bold">Why book with Roxy?</h3>
-                <ul className="space-y-2 list-disc list-inside text-blue-50">
+                <ul className="space-y-2 list-disc list-inside text-blue-50 text-sm sm:text-base">
                   <li>Doorstep pickup & on-time delivery</li>
                   <li>Delicate fabric & stain experts</li>
                   <li>Eco-friendly detergents</li>
                   <li>Real-time WhatsApp support</li>
                 </ul>
                 <a href="https://wa.me/9219636801?text=Hi%20Roxy%20team%2C%20need%20help%20with%20my%20booking" target="_blank" rel="noreferrer">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white w-full mt-2 flex items-center gap-2"><MessageCircle className="w-5 h-5" /> Chat on WhatsApp</Button>
+                  <Button className="bg-green-600 hover:bg-green-700 text-white w-full mt-2 flex items-center justify-center gap-2"><MessageCircle className="w-5 h-5" /> Chat on WhatsApp</Button>
                 </a>
               </CardContent>
             </Card>
@@ -326,7 +333,7 @@ export default function Page() {
         </section>
 
         {/* Map */}
-        <section className="px-6 md:px-10 pb-16">
+        <section className="px-4 sm:px-6 lg:px-10 pb-16">
           <h2 className="text-3xl font-bold mb-6 text-blue-800 text-center">Find Us</h2>
           <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
             <iframe
@@ -346,9 +353,9 @@ export default function Page() {
         </section>
 
         {/* Feedback */}
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="bg-blue-800 text-white py-16 px-8 text-center">
+        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="bg-blue-800 text-white py-16 px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Feedback / Rate Us</h2>
-            <p className="text-blue-100 max-w-2xl mx-auto mb-6">
+            <p className="text-blue-100 max-w-2xl mx-auto mb-6 text-sm sm:text-base">
               Loved our service or spotted something we can improve? Drop your rating and feedback so we can keep raising the bar for Roxy families.
             </p>
             <motion.button
@@ -371,10 +378,10 @@ export default function Page() {
                   exit={{ opacity: 0, y: 30 }}
                   transition={{ duration: 0.25 }}
                   onSubmit={submitFeedback}
-                  className="max-w-xl mx-auto mt-8 text-left bg-white/10 border border-white/15 rounded-2xl p-6 space-y-5 backdrop-blur"
+                  className="max-w-xl mx-auto mt-8 text-left bg-white/10 border border-white/15 rounded-2xl p-5 sm:p-6 space-y-5 backdrop-blur"
                 >
                   <div>
-                    <span className="block text-sm uppercase tracking-wide text-blue-100 mb-2">Your rating</span>
+                    <span className="block text-xs sm:text-sm uppercase tracking-wide text-blue-100 mb-2">Your rating</span>
                     <div className="flex justify-center gap-2">
                       {[1, 2, 3, 4, 5].map((value) => {
                         const active = value <= (feedbackHoverRating ?? feedbackRating ?? 0);
@@ -398,7 +405,7 @@ export default function Page() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm uppercase tracking-wide text-blue-100" htmlFor="feedback-notes">
+                    <label className="text-xs sm:text-sm uppercase tracking-wide text-blue-100" htmlFor="feedback-notes">
                       Tell us a bit more
                     </label>
                     <textarea
@@ -410,7 +417,7 @@ export default function Page() {
                       className="w-full rounded-xl border border-white/20 bg-white/10 text-white placeholder:text-blue-200/70 p-4 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
                   </div>
-                  <div className="flex justify-end gap-3">
+                  <div className="flex flex-col sm:flex-row justify-end gap-3">
                     <Button
                       type="button"
                       onClick={() => {
@@ -444,13 +451,46 @@ export default function Page() {
         </motion.div>
 
         {/* Contact */}
-        <div className="py-16 px-10 text-center">
+        <div className="py-16 px-4 sm:px-6 lg:px-10 text-center">
           <h2 className="text-3xl font-bold mb-4 text-blue-800">Contact Us</h2>
-          <p className="text-gray-600 max-w-xl mx-auto mb-6">Have questions? Reach out via phone, WhatsApp, or email. We’re here to help you 24/7.</p>
+          <p className="text-gray-600 max-w-xl mx-auto mb-6 text-sm sm:text-base">Have questions? Reach out via phone, WhatsApp, or email. We’re here to help you 24/7.</p>
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📞 Phone</h3><p>9219636801</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">💬 WhatsApp</h3><p>9219636801</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📧 Email</h3><p>bk.roxy@gmail.com</p></Card>
+            <a
+              href="tel:9219636801"
+              className="group block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl"
+              aria-label="Call Roxy Dry Cleaners"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">📞 Phone</span>
+                  <span className="text-gray-700 tracking-wide">9219636801</span>
+                </div>
+              </Card>
+            </a>
+            <a
+              href="https://wa.me/9219636801"
+              className="group block focus:outline-none focus:ring-2 focus:ring-green-500 rounded-2xl"
+              aria-label="Chat with Roxy Dry Cleaners on WhatsApp"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">💬 WhatsApp</span>
+                  <span className="text-gray-700 tracking-wide">9219636801</span>
+                </div>
+              </Card>
+            </a>
+            <a
+              href="mailto:bk.roxy@gmail.com?subject=Roxy%20Dry%20Cleaners%20Feedback"
+              className="group block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl"
+              aria-label="Email Roxy Dry Cleaners"
+            >
+              <Card className="rounded-2xl shadow-lg p-6 w-full sm:w-80 bg-white transition transform group-hover:-translate-y-1 group-hover:shadow-xl">
+                <div className="flex flex-col gap-2 text-left">
+                  <span className="font-semibold text-lg text-gray-900 flex items-center gap-2">📧 Email</span>
+                  <span className="text-gray-700 tracking-wide">bk.roxy@gmail.com</span>
+                </div>
+              </Card>
+            </a>
           </div>
         </div>
 
@@ -460,5 +500,6 @@ export default function Page() {
         </footer>
       </motion.div>
     </div>
+    </>
   );
 }
