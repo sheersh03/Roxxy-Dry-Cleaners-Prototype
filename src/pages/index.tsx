@@ -299,10 +299,19 @@ export default function Page() {
         <section className="px-6 md:px-10 pb-16">
           <h2 className="text-3xl font-bold mb-6 text-blue-800 text-center">Find Us</h2>
           <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
-            <iframe title="Roxy Dry Cleaners Location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31514.564!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRoxy%20Dry%20Cleaners!5e0!3m2!1sen!2sin!4v1700000000000" width="100%" height="420" loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" className="w-full" />
+            <iframe
+              title="Roxy Dry Cleaners Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3517.5543719931384!2d77.70662877545642!3d28.996768070220437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390c65a9c276d973%3A0xcd31cdb9021b6db7!2sRoxy%20Dyers%20%26%20Dry%20Cleaners!5e0!3m2!1sen!2sin!4v1733333333333"
+              width="100%"
+              height="420"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            />
           </div>
           <div className="text-center mt-4">
-            <a href="https://maps.app.goo.gl/vt1QgbMuydY4PZe48" target="_blank" rel="noreferrer"><Button>Open in Google Maps</Button></a>
+            <a href="https://maps.app.goo.gl/ehakHzYaf2fo6qQr7" target="_blank" rel="noreferrer"><Button>Open in Google Maps</Button></a>
           </div>
         </section>
 
