@@ -192,7 +192,7 @@ export default function Page() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">Premium Laundry, Washing, and Dry Cleaning. Best-in-class workforce, industry-leading machinery, and highly qualified fabric-care experts.</p>
           <div className="mt-8 flex justify-center gap-4">
             <Button onClick={scrollToBooking} className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg">Book a Service</Button>
-            <a href="https://wa.me/919876543210?text=Hi%20Roxy%20Dry%20Cleaners%2C%20I%20want%20to%20book%20a%20pickup." target="_blank" rel="noreferrer">
+            <a href="https://wa.me/9219636801?text=Hi%20Roxy%20Dry%20Cleaners%2C%20I%20want%20to%20book%20a%20pickup." target="_blank" rel="noreferrer">
               <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2"><MessageCircle className="w-5 h-5" /> WhatsApp Us</Button>
             </a>
           </div>
@@ -247,7 +247,7 @@ export default function Page() {
                     </div>
                     <div className="grid gap-1">
                       <label className="font-medium flex items-center gap-2"><Phone className="w-4 h-4" /> Phone</label>
-                      <input name="phone" value={form.phone} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" placeholder="e.g. +91 98765 43210" />
+                      <input name="phone" value={form.phone} onChange={onChange} className="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-400" placeholder="e.g. 9219636801" />
                     </div>
                     <div className="grid gap-1">
                       <label className="font-medium">Service</label>
@@ -269,10 +269,22 @@ export default function Page() {
                     <Button type="submit" className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg">Confirm Booking</Button>
                   </form>
                 ) : (
-                  <div className="text-center py-6">
-                    <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-3" />
-                    <p className="text-lg font-semibold">Thanks, {form.name.split(" ")[0] || "there"}! Your pickup request is in.</p>
-                    <p className="text-gray-600">Ref: {serverRef || "pending"} • We’ll call {form.phone || "you"} shortly to confirm.</p>
+                  <div className="text-center py-6 space-y-4">
+                    <div>
+                      <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-3" />
+                      <p className="text-lg font-semibold">Thanks, {form.name.split(" ")[0] || "there"}! Your pickup request is in.</p>
+                      <p className="text-gray-600">Ref: {serverRef || "pending"} • We’ll call {form.phone || "you"} shortly to confirm.</p>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setServerRef(null);
+                        setForm({ name: "", phone: "", service: "Laundry", address: "", date: "", time: "", notes: "" });
+                      }}
+                      className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl shadow-lg"
+                    >
+                      Book another pickup
+                    </Button>
                   </div>
                 )}
               </CardContent>
@@ -287,7 +299,7 @@ export default function Page() {
                   <li>Eco-friendly detergents</li>
                   <li>Real-time WhatsApp support</li>
                 </ul>
-                <a href="https://wa.me/919876543210?text=Hi%20Roxy%20team%2C%20need%20help%20with%20my%20booking" target="_blank" rel="noreferrer">
+                <a href="https://wa.me/9219636801?text=Hi%20Roxy%20team%2C%20need%20help%20with%20my%20booking" target="_blank" rel="noreferrer">
                   <Button className="bg-green-600 hover:bg-green-700 text-white w-full mt-2 flex items-center gap-2"><MessageCircle className="w-5 h-5" /> Chat on WhatsApp</Button>
                 </a>
               </CardContent>
@@ -328,9 +340,9 @@ export default function Page() {
           <h2 className="text-3xl font-bold mb-4 text-blue-800">Contact Us</h2>
           <p className="text-gray-600 max-w-xl mx-auto mb-6">Have questions? Reach out via phone, WhatsApp, or email. We’re here to help you 24/7.</p>
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📞 Phone</h3><p>+91 98765 43210</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">💬 WhatsApp</h3><p>+91 98765 43210</p></Card>
-            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📧 Email</h3><p>support@roxydrycleaners.com</p></Card>
+            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📞 Phone</h3><p>9219636801</p></Card>
+            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">💬 WhatsApp</h3><p>9219636801</p></Card>
+            <Card className="rounded-2xl shadow-lg p-6 w-72 bg-white"><h3 className="font-semibold text-lg mb-2">📧 Email</h3><p>bk.roxy@gmail.com</p></Card>
           </div>
         </div>
 
