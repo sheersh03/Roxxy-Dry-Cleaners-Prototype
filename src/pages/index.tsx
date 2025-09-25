@@ -527,7 +527,7 @@ export default function Page() {
 
         {/* Footer */}
         <footer className="bg-blue-900 text-white text-center py-6 mt-12">
-          <p>© {new Date().getFullYear()} Roxy Dry Cleaners. Built with ❤️</p>
+          <p>© {new Date().getFullYear()} Roxy Dry Cleaners. By Cavebeat, Crafting Reliability.</p>
         </footer>
       </motion.div>
     </div>
